@@ -1,7 +1,7 @@
 <template>
-  <main class="columns is-gapless is-multiline">
+  <main class="columns is-gapless is-multiline" :class="{ 'modo-escuro': modoEscuroAtivo }">
     <div class="column is-one-quarter">
-      <BarraLateral />
+      <BarraLateral @aoTemaAlterado="trocarTema"/>
     </div>
     <div class="column is-three-quarter conteudo">
       <Formulario @aoSalvarTarefa="salvarTarefa"/>
@@ -18,10 +18,10 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import BarraLateral from './components/BarraLateral.vue'
-import Formulario from './components/Formulario.vue'
-import Tarefa from './components/Tarefa.vue'
-import Box from './components/Box.vue'
-import ITarefa from "./interfaces/ITarefa"
+import Formulario from './components/FormularioVue.vue'
+import Tarefa from './components/TarefaVue.vue'
+import Box from './components/BoxVue.vue'
+import ITarefa from "./ITarefa"
 
 export default defineComponent({
   name: 'App',
@@ -33,7 +33,8 @@ export default defineComponent({
   },
   data () {
     return {
-      tarefas: [] as ITarefa[]
+      tarefas: [] as ITarefa[],
+      modoEscuroAtivo: false
     }
   },
   computed: {
@@ -44,6 +45,9 @@ export default defineComponent({
   methods: {
     salvarTarefa (tarefa: ITarefa) {
       this.tarefas.push(tarefa)
+    },
+    trocarTema (modoEscuroAtivo: boolean) {
+      this.modoEscuroAtivo = modoEscuroAtivo
     }
   }
 });
@@ -65,3 +69,4 @@ main.modo-escuro {
   background-color: var(--bg-primario);
 }
 </style>
+./ITarefa
